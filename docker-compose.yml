@@ -15,7 +15,7 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ./IdeaProjects:/home/developer/IdeaProjects
-      - ./.IdeaIC2018.1:/home/developer/.IdeaIC2018.1
+      - ./.ClionIC2019.1:/home/developer/.ClionIC2019.1
       - ./data:/home/developer/data
       - ./.java:/home/developer/.java
 
