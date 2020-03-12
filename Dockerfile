@@ -1,11 +1,13 @@
 FROM openkbs/jdk-mvn-py3-x11
 
 MAINTAINER DrSnowbird "DrSnowbird@openkbs.org"
+MAINTAINER StefanEicher "stefan.eicher@gmail.com"
 
-ARG INTELLIJ_VERSION=${INTELLIJ_VERSION:-ideaIC-2018.3.5}
+
+ARG INTELLIJ_VERSION=${INTELLIJ_VERSION:-CLion-2019.3.4}
 ENV INTELLIJ_VERSION=${INTELLIJ_VERSION}
 
-ARG IDEA_PRODUCT_NAME=${IDEA_PRODUCT_NAME:-IdeaIC2018}
+ARG IDEA_PRODUCT_NAME=${IDEA_PRODUCT_NAME:-ClionIC2019}
 ENV IDEA_PRODUCT_NAME=${IDEA_PRODUCT_NAME}
 
 ARG IDEA_PRODUCT_VERSION=${IDEA_PRODUCT_VERSION:-3}
@@ -14,7 +16,7 @@ ENV IDEA_PRODUCT_VERSION=${IDEA_PRODUCT_VERSION}
 ## -- derived vars ---
 ENV IDEA_INSTALL_DIR="${IDEA_PRODUCT_NAME}.${IDEA_PRODUCT_VERSION}"
 ENV IDEA_CONFIG_DIR=".${IDEA_PRODUCT_NAME}.${IDEA_PRODUCT_VERSION}"
-ENV IDEA_PROJECT_DIR="IdeaProjects"
+ENV IDEA_PROJECT_DIR="ClionProjects"
 
 #ENV SCALA_VERSION=2.12.4
 #ENV SBT_VERSION=1.0.4
@@ -65,7 +67,7 @@ ENV HOME=/home/${USER_NAME}
 #     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823 && \
 #     apt-get update && \
 #     apt-get install -y sbt
-    
+
 #########################################################
 #### ---- Install IntelliJ IDE : MODIFY two lines below ----
 #########################################################
@@ -73,16 +75,18 @@ ENV HOME=/home/${USER_NAME}
 USER ${USER_NAME}
 
 WORKDIR ${HOME}
-
+# https://download-cf.jetbrains.com/cpp/CLion-2019.3.4.tar.gz
 # https://download.jetbrains.com/idea/ideaIC-2018.3.3-no-jdk.tar.gz
 # https://download.jetbrains.com/idea/ideaIC-2018.3.5.tar.gz
-ARG INTELLIJ_IDE_TAR=${INTELLIJ_VERSION}-no-jdk.tar.gz
-ARG INTELLIJ_IDE_DOWNLOAD_FOLDER=idea
+#ARG INTELLIJ_IDE_TAR=${INTELLIJ_VERSION}-no-jdk.tar.gz
+ARG INTELLIJ_IDE_TAR=${INTELLIJ_VERSION}.tar.gz
+ARG INTELLIJ_IDE_DOWNLOAD_FOLDER=cpp
 
 ## -- (Release build) --
-RUN wget https://download.jetbrains.com/${INTELLIJ_IDE_DOWNLOAD_FOLDER}/${INTELLIJ_IDE_TAR} && \
-    tar xvf ${INTELLIJ_IDE_TAR} && \
-    mv idea-IC-* ${IDEA_INSTALL_DIR}  && \
+RUN wget https://download-cf.jetbrains.com/${INTELLIJ_IDE_DOWNLOAD_FOLDER}/${INTELLIJ_IDE_TAR} && \
+    tar xvf ${INTELLIJ_IDE_TAR}
+RUN ls -l
+RUN mv clion-* ${IDEA_INSTALL_DIR}  && \
     rm ${INTELLIJ_IDE_TAR}
 
 ## -- (Key Chain lib Intellij IDE complains needing this) --
@@ -93,7 +97,7 @@ RUN wget https://download.jetbrains.com/${INTELLIJ_IDE_DOWNLOAD_FOLDER}/${INTELL
 #RUN tar xvf ${INTELLIJ_IDE_TAR} && \
 #    mv idea-IC-* ${IDEA_INSTALL_DIR}  && \
 #    rm ${INTELLIJ_IDE_TAR}
-    
+
 RUN mkdir -p \
     ${HOME}/${IDEA_PROJECT_DIR} \
     ${HOME}/${IDEA_CONFIG_DIR} 
@@ -102,4 +106,4 @@ RUN mkdir -p \
 VOLUME ${HOME}/${IDEA_PROJECT_DIR}
 VOLUME ${HOME}/${IDEA_CONFIG_DIR}
 
-CMD "${HOME}/${IDEA_INSTALL_DIR}/bin/idea.sh"
+CMD "${HOME}/${IDEA_INSTALL_DIR}/bin/clion.sh"
