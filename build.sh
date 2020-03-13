@@ -33,7 +33,7 @@ fi
 ###################################################
 #### ---- Change this only if want to use your own
 ###################################################
-ORGANIZATION=openkbs
+ORGANIZATION=stefaneicher
 
 ###################################################
 #### ---- Detect Docker Run Env files ----
