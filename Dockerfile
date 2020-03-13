@@ -108,7 +108,6 @@ VOLUME ${HOME}/${IDEA_CONFIG_DIR}
 
 #Run as root since we want to use clion  for debugging over usb and this must run as root
 #todo investiaget if this is really needed
-USER root
-
+#USER root
 
 CMD "${HOME}/${IDEA_INSTALL_DIR}/bin/clion.sh"
