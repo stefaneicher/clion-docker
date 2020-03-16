@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-#fixme improve --device=/dev/bus/usb/001/015 /
-
-#./build.sh ./Dockerfile stefaneicher/clion-docker
-
+./build.sh ./Dockerfile stefaneicher/clion-docker
+docker tag 2eeef747c7f5 stefaneicher/clion-docker
+docker push stefaneicher/clion-docker
 
 docker run -ti --rm \
 -e DISPLAY=$DISPLAY \
